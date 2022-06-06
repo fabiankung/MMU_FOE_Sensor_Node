@@ -4,7 +4,7 @@
 // Transmitting text string to the receiver.
 //
 // Author        : Fabian Kung
-// Last modified : 1 June 2022
+// Last modified : 6 June 2022
 // Arduino Board : Pro-micro
 // For tutorial on nRF24L01+ module and the supporting Arduino
 // library, please visit:
@@ -23,8 +23,9 @@
 RF24 radio(9, 8);  // CE, CSN
 
 // Address through which two modules communicate.
-const byte address[6] = "00001";
+uint64_t address = 0x7878787878LL;  // Address for datapipe 0.
 #define _SENSOR_ID       'A'
+//#define _SENSOR_ID       'B'
 char  strTX[16];          // TX string buffer  
 
 
@@ -113,7 +114,7 @@ void loop()
   strTX[2] = unHundred + 0x30;
   strTX[3] = unTen + 0x30;
   strTX[4] = unDigit + 0x30;
-  radio.write(&strTX, sizeof(strTX)); // Transmit data string to receiver.
+  radio.write(&strTX, 5); // Transmit data string to receiver, 5 bytes.
   digitalWrite(PDEBUG_LED,LOW);   // Turn off debug LED.
   delay(250);
 }
