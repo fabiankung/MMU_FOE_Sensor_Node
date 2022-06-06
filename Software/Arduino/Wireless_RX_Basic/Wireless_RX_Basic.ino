@@ -1,9 +1,9 @@
 // Sample program for interfacing nRF24L01+ radio module with Arduino,
-// receiving text string from transmitter.
+// receiving text string from multiple transmitters using datapipe 0 on same RF channel.
 // Note that serial port of 115200 bps is used to improve throughput.
 //
 // Author         : Fabian Kung
-// Last modified  : 1 June 2022
+// Last modified  : 6 June 2022
 // Arduino Board  : Pro-micro
 // For tutorial on nRF24L01+ module and the supporting Arduino
 // library, please visit:
@@ -34,7 +34,7 @@
 RF24 radio(9, 8);  // CE, CSN
 
 //address through which two modules communicate.
-const byte address[6] = "00001";
+uint64_t address = 0x7878787878LL;  // Address for datapipe 0.
 char strRX[16] = {0};             // RX string buffer.
 
 void setup() {
@@ -78,7 +78,7 @@ void setup() {
                                    // If we use 2000 kbps baud rate, the channel interval 
                                    // should be 2 MHz to prevent interference.
   //set the address
-  radio.openReadingPipe(0, address); // Use datapipe 0 for device ID = address.
+  radio.openReadingPipe(0, address); // Use datapipe 0.
   //Set module as receiver
   radio.startListening();  
   Serial.println("IOT Sensor System ready");
@@ -86,9 +86,10 @@ void setup() {
 
 void loop() {
   int nIndex;
+  byte bytPipeNo;
   
   //Read the data if available in buffer.
-  if (radio.available())
+  if (radio.available(&bytPipeNo))
   {
     digitalWrite(PDEBUG_LED,HIGH);     // Light up debug LED.
     radio.read(&strRX, sizeof(strRX)); // Read data. This will attempt to read
