@@ -4,4 +4,4 @@ Arduino:
 3. The 'multi' version is for many-to-one, e.g. up to 6 TX units to one RX unit using 6 addresses with nRF24L01+ logical datapipe method.
 
 Visual Studio:
-A demonstration of host software written in Visual Basic .NET. The software is archived as Microsoft Visual Studio Project Template. You can use Microsoft Visual Studio to unarchive it and then compile into executable codes.
+1. A demonstration of host software written in Visual Basic .NET. The software is archived as Microsoft Visual Studio Project Template. You can use Microsoft Visual Studio to unarchive it and then compile into executable codes.
