@@ -1,5 +1,3 @@
-![Sensornode_V0_99](./FOE_SensorNode_V0_99.jpg)
-
 Arduino:
 1. Sample sourcecode to implement transmitter (TX) unit and receiver (RX) unit.
 2. The 'basic' version is for one-to-one, e.g. one TX unit to one RX unit using similar address value.
